@@ -48,7 +48,7 @@ player = Player(room['outside'])
 while True:
 # * Prints the current room name
     current_room = player.current_room
-    print(f'{player_name} -', player.current_room.name)
+    print(f'\n{player_name} -', player.current_room.name)
 # * Prints the current description (the textwrap module might be useful here).
     print(player.current_room.description)
 # * Waits for user input and decides what to do.
@@ -57,16 +57,18 @@ while True:
     attribute = user_input + "_to"
     if len(user_input) < 1:
         print('\nControls: \nN,S,E,W to move to a different room.')
-    if user_input in 'nsew':
+    elif user_input in 'nsew':
         if getattr(current_room, attribute): 
         # if current_room.n_to is not None:
             player.current_room = getattr(current_room, attribute)
         else: 
-            print('\nControls: \nN,S,E,W to move to a different room.')
-    # You can dynamically generate attributes like on the line below and then check/access them using hasattr and getattr 
-
+            print(f'\nNo place to {user_input}, please choose a valid direction')
+            continue
+    elif user_input == 'q':
+        break
+    else:
+        print('\nControls: \nN,S,E,W to move to a different room.')
+        continue
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-    if user_input == 'q':
-        break
