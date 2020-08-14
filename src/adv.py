@@ -40,6 +40,7 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
+player_name = input('Choose a name for your character:\n')
 player = Player(room['outside'])
 
 # Write a loop that:
@@ -47,7 +48,7 @@ player = Player(room['outside'])
 while True:
 # * Prints the current room name
     current_room = player.current_room
-    print('player', player.current_room.name)
+    print(f'{player_name} -', player.current_room.name)
 # * Prints the current description (the textwrap module might be useful here).
     print(player.current_room.description)
 # * Waits for user input and decides what to do.
