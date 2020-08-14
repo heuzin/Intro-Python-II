@@ -13,3 +13,29 @@ class Room:
         self.s_to: Room = None
         self.e_to: Room = None
         self.w_to: Room = None
+
+    def print_items(self):
+        for item in self.items:
+            print(f"You find a {item.name.lower()} in this room!")
+
+    def find_item(self, input_item):
+        for item in self.items:
+            if item.name.lower() == input_item.lower():
+                return item
+            return None
+
+    def remove_item(self, item):
+        print(f"You have picked up the {item.name.lower()}")
+        self.items.remove(item)
+
+    def add_item(self, item):
+        self.items.append(item)
+        print(f"You have dropped the {item.name.lower()}")
+
+class Dark_Room(Room):
+    def __init__(self, name, description, items, visibility):
+        super().__init__(name, description, items)
+        self.visibility = visibility
+
+    def light_on(self):
+        self.visibility = True

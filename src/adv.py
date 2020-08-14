@@ -56,14 +56,12 @@ while True:
     attribute = user_input + "_to"
     if len(user_input) < 1:
         print('\nControls: \nN,S,E,W to move to a different room.')
-    if user_input == 'n' or user_input == 's' or user_input == 'e' or user_input == 'w':
-        if hasattr(current_room, attribute): 
+    if user_input in 'nsew':
+        if getattr(current_room, attribute): 
         # if current_room.n_to is not None:
             player.current_room = getattr(current_room, attribute)
         else: 
             print('\nControls: \nN,S,E,W to move to a different room.')
-    else:
-        pass
     # You can dynamically generate attributes like on the line below and then check/access them using hasattr and getattr 
 
 # Print an error message if the movement isn't allowed.
