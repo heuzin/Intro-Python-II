@@ -13,3 +13,8 @@ class Room:
         self.s_to: Room = None
         self.e_to: Room = None
         self.w_to: Room = None
+        self.items = []
+    
+    def __str__(self):
+        for item in self.items:
+            print(item)
