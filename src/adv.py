@@ -60,7 +60,7 @@ while True:
         for item in current_room.items:
             print(item)
     # * Waits for user input and decides what to do.
-    user_input = input("Choose a direction to move in ('n', 's', 'e', 'w'), 'get' to pick up an item and 'drop' to drop an item: \n")
+    user_input = input("\n'get' to pick up an item and 'drop' to drop an item.\n'i' or 'inventory' to show items in your inventory. \nChoose a direction to move in ('n', 's', 'e', 'w').\n")
     split_input = user_input.split()
     # If the user enters a cardinal direction, attempt to move to the room there.
     attribute = user_input + "_to"
@@ -101,6 +101,12 @@ while True:
             else:
                 print(f"\nYou don't have that item in your inventory.")
     # If the user enters "q", quit the game.
+    elif user_input == 'i' or 'inventory':
+        item = player.items
+        if len(item) > 0:
+            player.show_inventory()
+        else:
+            print('\nNo items in your inventory')
     elif user_input == 'q':
         break
     # Print an error message if the movement isn't allowed.
