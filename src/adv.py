@@ -61,6 +61,7 @@ while True:
             print(item)
 # * Waits for user input and decides what to do.
     user_input = input("Choose a direction to move in ('n', 's', 'e', 'w'):\n")
+    split_input = user_input.split()
 # If the user enters a cardinal direction, attempt to move to the room there.
     attribute = user_input + "_to"
     if len(user_input) < 1:
@@ -72,6 +73,17 @@ while True:
         else: 
             print(f'\nNo place to {user_input}, please choose a valid direction')
             continue
+    elif len(split_input) == 2:
+        item_name = split_input[1]
+        if split_input[0].lower() == 'get':
+# If the user enters get or take followed by an Item name, look at the contents of the current Room to see if the item is there.
+            item = current_room.get_item(item_name)
+            if item:
+                item.on_take()
+                current_room.remove_item(item)
+                player.items.append(item)
+            else:
+                print(f"{item_name} does not exist in room")      
     elif user_input == 'q':
         break
     else:

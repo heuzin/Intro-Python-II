@@ -1,5 +1,6 @@
 # Implement a class to hold room information. This should have name and
 # description attributes.
+from item import Item
 
 class Room:
     def __init__(self, name, description):
@@ -18,3 +19,15 @@ class Room:
     def __str__(self):
         for item in self.items:
             print(item)
+
+    def get_item(self, item_name: str):      
+        """ Returns the item corresponding to item_name if it exists in the room
+        otherwise returns None"""
+        for item in self.items:
+            if item.name.lower() == item_name.lower():
+                return item
+
+            return None
+
+    def remove_item(self, item: Item):
+        self.items.remove(item)
