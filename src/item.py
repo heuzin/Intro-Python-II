@@ -7,7 +7,10 @@ class Item:
         return f'{self.name}: {self.description}'
 
     def on_take(self):
-        print(f'You have picked up {self.name}')
+        print(f'\nYou have picked up {self.name}')
+
+    def on_drop(self):
+        print(f'\nYou dropped an item: {self.name}')
 
 # class LightTorch(Item):
 #     def __init__(self, name, description, isOn=False):

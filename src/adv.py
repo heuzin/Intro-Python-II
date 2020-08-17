@@ -50,19 +50,19 @@ player = Player(room['outside'])
 # Write a loop that:
 #
 while True:
-# * Prints the current room name
+    # * Prints the current room name
     current_room = player.current_room
     print(f'\n{player_name} -', player.current_room.name)
-# * Prints the current description (the textwrap module might be useful here).
+    # * Prints the current description (the textwrap module might be useful here).
     print(player.current_room.description)
-#room items
+    #room items
     if current_room.items:
         for item in current_room.items:
             print(item)
-# * Waits for user input and decides what to do.
-    user_input = input("Choose a direction to move in ('n', 's', 'e', 'w'):\n")
+    # * Waits for user input and decides what to do.
+    user_input = input("Choose a direction to move in ('n', 's', 'e', 'w'), 'get' to pick up an item and 'drop' to drop an item: \n")
     split_input = user_input.split()
-# If the user enters a cardinal direction, attempt to move to the room there.
+    # If the user enters a cardinal direction, attempt to move to the room there.
     attribute = user_input + "_to"
     if len(user_input) < 1:
         print('\nControls: \nN,S,E,W to move to a different room.')
@@ -76,19 +76,34 @@ while True:
     elif len(split_input) == 2:
         item_name = split_input[1]
         if split_input[0].lower() == 'get':
-# If the user enters get or take followed by an Item name, look at the contents of the current Room to see if the item is there.
+            # If the user enters get or take followed by an Item name, look at the contents of the current Room to see if the item is there.
             item = current_room.get_item(item_name)
             if item:
                 item.on_take()
+                # remove the item from the room
                 current_room.remove_item(item)
+                # Add it to the player's items
                 player.items.append(item)
             else:
-                print(f"{item_name} does not exist in room")      
+                print(f"\n{item_name} does not exist in room")
+        elif split_input[0] == 'drop':
+            # drop the item
+            item = player.get_item(item_name)
+            # check if item is on player
+            # if it is:
+            if item:
+            #   call item.on_drop()
+                item.on_drop()
+            #   remove from player
+                player.remove_item(item)
+            #   add to room
+                current_room.items.append(item)
+            else:
+                print(f"\nYou don't have that item in your inventory.")
+    # If the user enters "q", quit the game.
     elif user_input == 'q':
         break
+    # Print an error message if the movement isn't allowed.
     else:
         print('\nControls: \nN,S,E,W to move to a different room.')
         continue
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
